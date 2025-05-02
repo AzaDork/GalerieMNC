@@ -1,5 +1,6 @@
 import React from 'react';
 import { Instagram, Facebook } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -46,9 +47,9 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/a-propos" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">
+                <Link to="/a-propos" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">
                   À Propos
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

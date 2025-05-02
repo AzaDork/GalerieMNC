@@ -7,10 +7,10 @@ import AboutPage from './pages/AboutPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/GalerieMNC">
       <div className="font-sans text-gray-900">
         <Header />
-        <main className="pt-40">
+        <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/a-propos" element={<AboutPage />} />

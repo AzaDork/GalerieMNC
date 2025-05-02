@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Instagram, Facebook } from 'lucide-react';
 import logo from '/GalerieMNC_logo.png';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,13 +38,13 @@ const Header: React.FC = () => {
     >
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center h-24">
+          <Link to="/" className="flex items-center h-24">
             <img 
               src={logo}
               alt="Galerie MNC" 
               className="h-full w-auto object-contain"
             />
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex flex-col items-end">
@@ -88,9 +89,9 @@ const Header: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="/a-propos" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
+                  <Link to="/a-propos" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
                     À Propos
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </nav>

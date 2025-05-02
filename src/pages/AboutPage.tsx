@@ -9,11 +9,11 @@ const AboutPage: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className="pt-40">
       <Mosaic />
       <StoreInfo />
       <LocationSection />
-    </>
+    </div>
   );
 };
 
