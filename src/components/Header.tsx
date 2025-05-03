@@ -1,41 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Menu, X, Instagram, Facebook } from 'lucide-react';
 import logo from '/GalerieMNC_logo.png';
 import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [headerBg, setHeaderBg] = useState('bg-transparent');
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const offset = window.scrollY;
-      const maxScroll = 200;
-      const scrollProgress = Math.min(1, offset / maxScroll);
-      
-      if (offset > 50) {
-        setScrolled(true);
-        setHeaderBg(`rgb(255 255 255 / ${scrollProgress})`);
-      } else {
-        setScrolled(false);
-        setHeaderBg('transparent');
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${
-        scrolled ? 'shadow-md py-3' : 'py-6'
-      }`}
-      style={{ backgroundColor: headerBg }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-[9999] bg-white shadow-md py-3">
       <div className="container mx-auto px-4 md:px-8">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center h-24">
@@ -79,9 +51,9 @@ const Header: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="/encadrement" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
+                  <Link to="/encadrement" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
                     Encadrement
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="/nous-contacter" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
