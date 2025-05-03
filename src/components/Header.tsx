@@ -15,6 +15,7 @@ const Header: React.FC = () => {
               src={logo}
               alt="Galerie MNC" 
               className="h-full w-auto object-contain"
+              loading="lazy"
             />
           </Link>
 

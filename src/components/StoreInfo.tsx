@@ -10,6 +10,7 @@ const StoreInfo: React.FC = () => {
             src={vitrineDessin}
             alt="Illustration de la façade de la Galerie Martine Namy-Caulier"
             className="w-full h-auto"
+            loading="lazy"
           />
         </div>
         <div className="order-1 md:order-2 space-y-6">

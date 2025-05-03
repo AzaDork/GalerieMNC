@@ -28,6 +28,7 @@ const Hero: React.FC = () => {
           src={vitrine}
           alt="Galerie MNC Storefront"
           className="w-full h-full object-cover"
+          loading="lazy"
         />
       </div>
 
