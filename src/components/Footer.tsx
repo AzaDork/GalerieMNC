@@ -32,11 +32,6 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/oeuvres" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">
-                  Oeuvres
-                </a>
-              </li>
-              <li>
                 <Link to="/encadrement" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">
                   Encadrement
                 </Link>
