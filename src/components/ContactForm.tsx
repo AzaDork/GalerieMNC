@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Send } from 'lucide-react';
+import emailjs from 'emailjs-com';
+
 
 interface FormState {
   name: string;
