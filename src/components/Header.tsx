@@ -42,9 +42,9 @@ const Header: React.FC = () => {
             <nav>
               <ul className="flex space-x-8">
                 <li>
-                  <a href="/artistes" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
+                  <Link to="/artistes" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
                     Artistes
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <Link to="/encadrement" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
@@ -103,13 +103,13 @@ const Header: React.FC = () => {
           </div>
           <ul className="space-y-6">
             <li>
-              <a 
-                href="/artistes" 
+              <Link 
+                to="/artistes" 
                 className="text-2xl font-light block py-2 border-b border-gray-100"
                 onClick={() => setIsOpen(false)}
               >
                 Artistes
-              </a>
+              </Link>
             </li>
             <li>
               <Link 

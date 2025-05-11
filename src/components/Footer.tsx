@@ -27,9 +27,9 @@ const Footer: React.FC = () => {
             <h3 className="text-base md:text-lg font-medium mb-4 md:mb-6">Navigation</h3>
             <ul className="space-y-2 md:space-y-3">
               <li>
-                <a href="/artistes" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">
+                <Link to="/artistes" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">
                   Artistes
-                </a>
+                </Link>
               </li>
               <li>
                 <Link to="/encadrement" className="text-sm md:text-base text-gray-600 hover:text-black transition-colors">

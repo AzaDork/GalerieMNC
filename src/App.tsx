@@ -7,8 +7,8 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import FramingPage from './pages/FramingPage';
+import ArtistsPage from './pages/ArtistsPage';
 import ScrollToTop from './components/ScrollToTop';
-
 
 const HeaderSwitcher: React.FC = () => {
   const location = useLocation();
@@ -24,6 +24,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/artistes" element={<ArtistsPage />} />
             <Route path="/nous-contacter" element={<ContactPage />} />
             <Route path="/encadrement" element={<FramingPage />} />
             <Route path="/a-propos" element={<AboutPage />} />
