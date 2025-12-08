@@ -42,8 +42,8 @@ const Hero: React.FC = () => {
             <p className="text-xl md:text-2xl font-light mb-8 opacity-0 animate-fade-in animation-delay-200">
               Art contemporain & Encadrement sur mesure
             </p>
-            <a 
-              href="/oeuvres" 
+            <Link 
+              to="/artistes"
               className="inline-flex items-center border-b-2 border-white/80 pb-1 hover:border-white transition-all duration-300 opacity-0 animate-fade-in animation-delay-400"
             >
               <span className="mr-2">Découvrir nos artistes</span>
