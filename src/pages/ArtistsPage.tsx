@@ -2,20 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Artists from '../components/Artists';
 import { sanityClient } from '../utils/sanity';
 
-interface ArtWork {
-  _id: string;
-  title: string;
-  year: string;
-  medium: string;
-  dimensions: string;
-  image: { asset: { url: string } };
-}
-
-export interface Artist {
+interface Artist {
   _id: string;
   name: string;
   bio: string;
-  photo: { asset: { url: string } }
+  photo?: { asset?: { url?: string } };
 }
 
 const ArtistsPage: React.FC = () => {
@@ -31,7 +22,15 @@ const ArtistsPage: React.FC = () => {
       photo { asset->{url} }
     }`;
 
-    sanityClient.fetch(query).then(setArtists);
+    sanityClient.fetch(query)
+      .then((data) => {
+        console.log('ARTISTS FROM SANITY:', data);
+        setArtists(data);
+      })
+      .catch((error) => {
+        console.error('Erreur Sanity :', error);
+      });
+
   }, []);
 
   return (
@@ -41,4 +40,5 @@ const ArtistsPage: React.FC = () => {
   );
 };
 
+export type { Artist };
 export default ArtistsPage;

@@ -20,6 +20,21 @@ const Artists: React.FC<ArtistsProps> = ({ artists }) => {
     document.body.style.overflow = 'auto';
   };
 
+  console.log('Artists component received:', artists);
+
+  if (!artists || artists.length === 0) {
+    return (
+      <div className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-light tracking-tight mb-4">Nos artistes</h2>
+          <p className="text-gray-600 mb-8">
+            Aucun artiste n&apos;est encore publié dans le CMS.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
