@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import vitrine from '/GalerieMNC_vitrine.jpeg';
+import { Link } from 'react-router-dom';
 
 const Hero: React.FC = () => {
   const [opacity, setOpacity] = useState(30);
