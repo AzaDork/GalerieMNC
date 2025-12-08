@@ -15,7 +15,6 @@ export interface Artist {
   _id: string;
   name: string;
   bio: string;
-  featured: boolean;
   photo: { asset: { url: string } };
   featuredWorks: ArtWork[];
 }
@@ -30,7 +29,6 @@ const ArtistsPage: React.FC = () => {
       _id,
       name,
       bio,
-      featured,
       photo { asset->{url} },
       featuredWorks[]->{
         _id,
