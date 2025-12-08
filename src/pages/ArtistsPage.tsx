@@ -15,8 +15,7 @@ export interface Artist {
   _id: string;
   name: string;
   bio: string;
-  photo: { asset: { url: string } };
-  featuredWorks: ArtWork[];
+  photo: { asset: { url: string } }
 }
 
 const ArtistsPage: React.FC = () => {
@@ -29,15 +28,7 @@ const ArtistsPage: React.FC = () => {
       _id,
       name,
       bio,
-      photo { asset->{url} },
-      featuredWorks[]->{
-        _id,
-        title,
-        year,
-        medium,
-        dimensions,
-        image { asset->{url} }
-      }
+      photo { asset->{url} }
     }`;
 
     sanityClient.fetch(query).then(setArtists);
