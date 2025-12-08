@@ -23,12 +23,6 @@ export default defineType({
       options: {
         hotspot: true
       }
-    },
-    {
-      name: 'featuredWorks',
-      title: 'Œuvres mises en avant',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'artwork' }] }],
-    },
+    }
   ],
 })
