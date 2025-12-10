@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import type { Artist } from '../../pages/Artists';
+import type { Artist } from '../../pages/ArtistsPage';
 
 interface ArtistCardProps {
   artist: Artist;
@@ -8,7 +8,18 @@ interface ArtistCardProps {
 
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
   const imageUrl = artist.photo?.asset?.url;
-  const slug = artist.slug?.current; // important
+
+  // slug principal depuis Sanity
+  const slugFromSanity = artist.slug?.current;
+
+  // petit fallback au cas où (généré à partir du nom)
+  const fallbackSlug = artist.name
+    .toLowerCase()
+    .normalize('NFD')              // enlève les accents
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '-');         // espaces -> tirets
+
+  const slug = slugFromSanity || fallbackSlug;
 
   return (
     <Link
@@ -28,14 +39,7 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
           </div>
         )}
       </div>
-
-      <h3 className="text-lg font-medium mb-1">{artist.name}</h3>
-
-      {artist.bio && (
-        <p className="text-sm text-gray-600 line-clamp-3">
-          {artist.bio}
-        </p>
-      )}
+      <h3 className="text-lg font-medium">{artist.name}</h3>
     </Link>
   );
 };

@@ -7,6 +7,7 @@ interface Artist {
   name: string;
   bio: string;
   photo?: { asset?: { url?: string } };
+  slug: { current: string };
 }
 
 const ArtistsPage: React.FC = () => {
@@ -18,8 +19,8 @@ const ArtistsPage: React.FC = () => {
     const query = `*[_type == "artist"]{
       _id,
       name,
-      slug,
       bio,
+      slug,
       photo { asset->{url} }
     }`;
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ArtistCard from './artists/ArtistCard';
-import type { Artist } from '../pages/Artists';
+import type { Artist } from '../pages/ArtistsPage';
 
 interface ArtistsProps {
   artists: Artist[];
@@ -13,7 +13,7 @@ const Artists: React.FC<ArtistsProps> = ({ artists }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-light tracking-tight mb-4">Nos artistes</h2>
           <p className="text-gray-600 mb-8">
-            Aucun artiste n&apos;est encore publié dans le CMS.
+            Chargement en cours.
           </p>
         </div>
       </div>

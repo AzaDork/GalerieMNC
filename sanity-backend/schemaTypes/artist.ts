@@ -9,14 +9,25 @@ export default defineType({
       name: 'name',
       title: 'Nom de l’artiste',
       type: 'string',
-      validation: Rule => Rule.required()
+      validation: Rule => Rule.required(),
     },
     {
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'name', maxLength: 96 },
-      validation: Rule => Rule.required(),
+      hidden: true,
+      options: {
+        source: 'name',
+        maxLength: 96,
+        slugify: (input: string) =>
+          input
+            .toLowerCase()
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9\s-]/g, '')
+            .trim()
+            .replace(/\s+/g, '-'),
+      },
     },
     {
       name: 'bio',
@@ -27,7 +38,7 @@ export default defineType({
       name: 'photo',
       title: 'Photo de l’artiste',
       type: 'image',
-      options: { hotspot: true }
-    }
+      options: { hotspot: true },
+    },
   ],
-})
+});
