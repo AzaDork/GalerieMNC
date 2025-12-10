@@ -11,5 +11,7 @@ export const artistsQuery = `*[_type == "artist"]{
   _id,
   name,
   bio,
+  exhibitions,
+  slug,
   "imageUrl": image.asset->url
 }`;

@@ -9,7 +9,6 @@ interface ArtistCardProps {
 const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
   const imageUrl = artist.photo?.asset?.url;
 
-  // slug principal depuis Sanity
   const slugFromSanity = artist.slug?.current;
 
   // petit fallback au cas où (généré à partir du nom)

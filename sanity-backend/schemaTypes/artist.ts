@@ -35,6 +35,11 @@ export default defineType({
       type: 'text',
     },
     {
+      name: 'exhibitions',
+      title: 'Expositions',
+      type: 'text', // zone de texte libre
+    },
+    {
       name: 'photo',
       title: 'Photo de l’artiste',
       type: 'image',

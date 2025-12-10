@@ -6,6 +6,7 @@ interface Artist {
   _id: string;
   name: string;
   bio: string;
+  exhibitions: string;
   photo?: { asset?: { url?: string } };
   slug: { current: string };
 }
@@ -20,6 +21,7 @@ const ArtistsPage: React.FC = () => {
       _id,
       name,
       bio,
+      exhibitions,
       slug,
       photo { asset->{url} }
     }`;
