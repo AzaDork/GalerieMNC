@@ -1,27 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ArtistCard from './artists/ArtistCard';
-import ArtistDetail from './artists/ArtistDetail';
-import { Artist } from '../pages/ArtistsPage';
+import type { Artist } from '../pages/Artists';
 
 interface ArtistsProps {
   artists: Artist[];
 }
 
 const Artists: React.FC<ArtistsProps> = ({ artists }) => {
-  const [selectedArtist, setSelectedArtist] = useState<Artist | null>(null);
-
-  const handleArtistClick = (artist: Artist) => {
-    setSelectedArtist(artist);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const handleCloseDetail = () => {
-    setSelectedArtist(null);
-    document.body.style.overflow = 'auto';
-  };
-
-  console.log('Artists component received:', artists);
-
   if (!artists || artists.length === 0) {
     return (
       <div className="py-24">
@@ -38,6 +23,8 @@ const Artists: React.FC<ArtistsProps> = ({ artists }) => {
   return (
     <div className="py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-12">
           <h2 className="text-3xl font-light tracking-tight mb-4">Nos artistes</h2>
           <p className="text-gray-600">
@@ -45,20 +32,16 @@ const Artists: React.FC<ArtistsProps> = ({ artists }) => {
           </p>
         </div>
 
+        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
           {artists.map((artist) => (
             <ArtistCard
               key={artist._id}
               artist={artist}
-              onClick={() => handleArtistClick(artist)}
             />
           ))}
         </div>
       </div>
-
-      {selectedArtist && (
-        <ArtistDetail artist={selectedArtist} onClose={handleCloseDetail} />
-      )}
     </div>
   );
 };

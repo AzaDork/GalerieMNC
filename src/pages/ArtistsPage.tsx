@@ -18,6 +18,7 @@ const ArtistsPage: React.FC = () => {
     const query = `*[_type == "artist"]{
       _id,
       name,
+      slug,
       bio,
       photo { asset->{url} }
     }`;

@@ -1,18 +1,19 @@
 import React from 'react';
-import { Artist } from '../../pages/ArtistsPage';
+import { Link } from 'react-router-dom';
+import type { Artist } from '../../pages/Artists';
 
 interface ArtistCardProps {
   artist: Artist;
-  onClick: () => void;
 }
 
-const ArtistCard: React.FC<ArtistCardProps> = ({ artist, onClick }) => {
+const ArtistCard: React.FC<ArtistCardProps> = ({ artist }) => {
   const imageUrl = artist.photo?.asset?.url;
+  const slug = artist.slug?.current; // important
 
   return (
-    <button
-      onClick={onClick}
-      className="text-left group focus:outline-none"
+    <Link
+      to={`/artistes/${slug}`}
+      className="text-left group focus:outline-none block"
     >
       <div className="aspect-[4/5] w-full overflow-hidden rounded-lg bg-gray-100 mb-4">
         {imageUrl ? (
@@ -27,13 +28,15 @@ const ArtistCard: React.FC<ArtistCardProps> = ({ artist, onClick }) => {
           </div>
         )}
       </div>
+
       <h3 className="text-lg font-medium mb-1">{artist.name}</h3>
+
       {artist.bio && (
         <p className="text-sm text-gray-600 line-clamp-3">
           {artist.bio}
         </p>
       )}
-    </button>
+    </Link>
   );
 };
 
