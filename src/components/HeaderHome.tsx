@@ -80,11 +80,6 @@ const HeaderHome: React.FC = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/nous-contacter" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
-                    Nous Contacter
-                  </Link>
-                </li>
-                <li>
                   <Link to="/a-propos" className="text-sm uppercase tracking-widest hover:text-gray-500 transition-colors">
                     À Propos
                   </Link>
@@ -146,15 +141,6 @@ const HeaderHome: React.FC = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Encadrement
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/nous-contacter" 
-                className="text-2xl font-light block py-2 border-b border-gray-100"
-                onClick={() => setIsOpen(false)}
-              >
-                Nous Contacter
               </Link>
             </li>
             <li>
