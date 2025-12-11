@@ -10,6 +10,8 @@ import FramingPage from './pages/FramingPage';
 import ArtistsPage from './pages/ArtistsPage';
 import ScrollToTop from './components/ScrollToTop';
 import ArtistDetailPage from './pages/ArtistDetailPage';
+import LegalInformationPage from './pages/LegalInformationPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 
 const HeaderSwitcher: React.FC = () => {
@@ -31,6 +33,8 @@ function App() {
             <Route path="/nous-contacter" element={<ContactPage />} />
             <Route path="/encadrement" element={<FramingPage />} />
             <Route path="/a-propos" element={<AboutPage />} />
+            <Route path="/mentions-legales" element={<LegalInformationPage />} />
+            <Route path="/politique-de-confidentialite" element={<PrivacyPolicyPage />} />
           </Routes>
         </main>
         <Footer />
