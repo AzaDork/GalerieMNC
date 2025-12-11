@@ -20,11 +20,11 @@ const ArtistDetailPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const [artist, setArtist] = useState<ArtistDetail | null>(null);
   const [loading, setLoading] = useState(true);
+  const [showAllExposMobile, setShowAllExposMobile] = useState(false);
 
   useEffect(() => {
     if (!slug) return;
 
-    // On récupère l'artiste + ses oeuvres liées
     const query = `*[_type == "artist" && slug.current == $slug][0]{
       name,
       bio,
@@ -66,6 +66,7 @@ const ArtistDetailPage: React.FC = () => {
   }
 
   const imageUrl = artist.photo?.asset?.url;
+
   const exhibitionLines = artist.exhibitions
     ? artist.exhibitions
         .split('\n')
@@ -73,19 +74,21 @@ const ArtistDetailPage: React.FC = () => {
         .filter((l) => l.length > 0)
     : [];
 
-  // On coupe la liste en 2 colonnes à peu près égales
+  const hasMoreExpos = exhibitionLines.length > 10;
+  const mobileExpos = showAllExposMobile || !hasMoreExpos
+    ? exhibitionLines
+    : exhibitionLines.slice(0, 10);
+
   const middle = Math.ceil(exhibitionLines.length / 2);
   const leftExpos = exhibitionLines.slice(0, middle);
   const rightExpos = exhibitionLines.slice(middle);
 
   return (
     <div className="pt-40 max-w-6xl mx-auto px-4 pb-16 space-y-16">
-      {/* Titre */}
       <h1 className="text-3xl md:text-4xl font-light text-center mb-8">
         {artist.name}
       </h1>
 
-      {/* Photo + Biographie en 2 colonnes */}
       <section className="grid md:grid-cols-2 gap-10 items-start">
         {imageUrl && (
           <div className="w-full max-h-[380px] overflow-hidden rounded-lg bg-gray-100">
@@ -104,11 +107,31 @@ const ArtistDetailPage: React.FC = () => {
         )}
       </section>
 
-      {/* Expositions */}
       {exhibitionLines.length > 0 && (
         <section className="space-y-6">
           <h2 className="text-2xl md:text-3xl font-semibold">Expositions</h2>
-          <div className="grid md:grid-cols-2 gap-8 text-sm md:text-base">
+
+          <div className="md:hidden space-y-3 text-sm">
+            <ul className="space-y-1 italic">
+              {mobileExpos.map((line, idx) => (
+                <li key={idx}>{line}</li>
+              ))}
+            </ul>
+
+            {hasMoreExpos && (
+              <button
+                type="button"
+                onClick={() => setShowAllExposMobile((prev) => !prev)}
+                className="mt-2 text-xs font-medium underline underline-offset-4"
+              >
+                {showAllExposMobile
+                  ? 'Réduire la liste'
+                  : 'Afficher toutes les expositions'}
+              </button>
+            )}
+          </div>
+
+          <div className="hidden md:grid md:grid-cols-2 gap-8 text-sm md:text-base">
             <ul className="space-y-1 italic">
               {leftExpos.map((line, idx) => (
                 <li key={idx}>{line}</li>
@@ -122,28 +145,31 @@ const ArtistDetailPage: React.FC = () => {
           </div>
         </section>
       )}
-
-      {/* Ses oeuvres */}
-      {artist.artworks && artist.artworks.length > 0 && (
+        {artist.artworks && artist.artworks.length > 0 && (
         <section className="space-y-6">
-          <h2 className="text-2xl md:text-3xl font-semibold">Ses œuvres</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <h2 className="text-2xl md:text-3xl font-semibold">Ses œuvres</h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {artist.artworks.map((art) => {
-              const url = art.image?.asset?.url;
-              if (!url) return null;
-              return (
-                <div key={art._id} className="overflow-hidden rounded-md bg-gray-100">
-                  <img
+                const url = art.image?.asset?.url;
+                if (!url) return null;
+
+                return (
+                <div
+                    key={art._id}
+                    className="overflow-hidden rounded-md bg-gray-100 aspect-square"
+                >
+                    <img
                     src={url}
                     alt={art.title || ''}
-                    className="w-full h-full object-cover"
-                  />
+                    className="w-full h-full object-cover duration-300 hover:scale-105"
+                    />
                 </div>
-              );
+                );
             })}
-          </div>
+            </div>
         </section>
-      )}
+        )}
     </div>
   );
 };
