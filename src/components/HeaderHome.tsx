@@ -126,7 +126,7 @@ const HeaderHome: React.FC = () => {
           <X size={32} />
         </button>
 
-        <nav className="container mx-auto px-6 py-20">
+        <nav className="container mx-auto px-4 py-20">
           {/* Top bar : logo gauche / réseaux droite */}
           <div className="flex items-center justify-between mb-8">
             <Link 

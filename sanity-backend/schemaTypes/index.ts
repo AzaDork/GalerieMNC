@@ -1,4 +1,5 @@
-import artist from './artist'
-import artwork from './artwork'
+import artist from './artist';
+import artwork from './artwork';
+import homePage from './homePage';
 
-export default [artist, artwork]
+export const schemaTypes = [artist, artwork, homePage];
