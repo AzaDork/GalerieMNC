@@ -71,24 +71,49 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (validateForm()) {
-      setIsSubmitting(true);
+    if (!validateForm()) return;
 
-      // Simulate form submission
-      setTimeout(() => {
+    setIsSubmitting(true);
+    setIsSubmitted(false);
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      subject: formData.subject || 'Nouveau message depuis le site',
+      message: formData.message,
+    };
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
+      )
+      .then(() => {
         setIsSubmitting(false);
         setIsSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
 
-        // Reset submission status after 5 seconds
+        // Optionnel : cacher le message de succès après 5s
         setTimeout(() => {
           setIsSubmitted(false);
         }, 5000);
-      }, 1500);
-    }
+      })
+      .catch((error) => {
+        console.error('Erreur EmailJS:', error);
+        setIsSubmitting(false);
+        // On peut afficher un message d'erreur simple à l’utilisateur si tu veux
+        alert("Une erreur est survenue lors de l'envoi du message. Merci de réessayer.");
+      });
   };
 
   return (
