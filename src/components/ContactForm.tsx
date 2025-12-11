@@ -3,6 +3,7 @@ import { Send } from 'lucide-react';
 import emailjs from 'emailjs-com';
 
 interface FormState {
+  civility: string;
   name: string;
   email: string;
   subject: string;
@@ -21,6 +22,7 @@ interface ContactFormProps {
 
 const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
   const [formData, setFormData] = useState<FormState>({
+    civility: '',
     name: '',
     email: '',
     subject: initialSubject,
@@ -60,7 +62,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -80,6 +82,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
     setIsSubmitted(false);
 
     const templateParams = {
+      civility: formData.civility,
       from_name: formData.name,
       from_email: formData.email,
       subject: formData.subject || 'Nouveau message depuis le site',
@@ -97,6 +100,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
         setIsSubmitting(false);
         setIsSubmitted(true);
         setFormData({
+          civility: '',
           name: '',
           email: '',
           subject: '',
@@ -111,8 +115,9 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
       .catch((error) => {
         console.error('Erreur EmailJS:', error);
         setIsSubmitting(false);
-        // On peut afficher un message d'erreur simple à l’utilisateur si tu veux
-        alert("Une erreur est survenue lors de l'envoi du message. Merci de réessayer.");
+        alert(
+          "Une erreur est survenue lors de l'envoi du message. Merci de réessayer."
+        );
       });
   };
 
@@ -140,16 +145,33 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
               </svg>
             </div>
             <h3 className="text-xl font-medium text-gray-900 mb-2">
-              Thank You
+              Merci
             </h3>
             <p className="text-gray-600">
-              Votre message a bien été envoyé. Nous vous répondrons au plus
-              vite.
+              Votre message a bien été envoyé. Nous vous répondrons au plus vite.
             </p>
           </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Civilité */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Civilité
+            </label>
+            <select
+              name="civility"
+              value={formData.civility}
+              onChange={handleChange}
+              className="w-full p-3 border border-gray-200 rounded-md shadow-sm focus:ring-1 focus:ring-gray-900 focus:border-gray-900 transition-colors"
+            >
+              <option value="">--</option>
+              <option value="Mme">Madame</option>
+              <option value="M.">Monsieur</option>
+            </select>
+          </div>
+
+          {/* Nom */}
           <div>
             <label
               htmlFor="name"
@@ -172,6 +194,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
             )}
           </div>
 
+          {/* Email */}
           <div>
             <label
               htmlFor="email"
@@ -194,6 +217,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
             )}
           </div>
 
+          {/* Sujet */}
           <div>
             <label
               htmlFor="subject"
@@ -211,6 +235,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
             />
           </div>
 
+          {/* Message */}
           <div>
             <label
               htmlFor="message"
@@ -233,6 +258,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
             )}
           </div>
 
+          {/* Bouton */}
           <div>
             <button
               type="submit"
