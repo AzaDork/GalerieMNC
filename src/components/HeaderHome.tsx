@@ -8,6 +8,7 @@ const HeaderHome: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [headerBg, setHeaderBg] = useState('bg-transparent');
 
+  // Effet pour le changement de background au scroll
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
@@ -28,6 +29,19 @@ const HeaderHome: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  // Effet pour bloquer le scroll de la page quand le menu mobile est ouvert
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isOpen]);
 
   return (
     <header 
@@ -103,27 +117,51 @@ const HeaderHome: React.FC = () => {
         className={`fixed inset-0 bg-white z-40 transition-transform duration-300 ease-in-out transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         } md:hidden`}
-        style={{ top: '72px' }}
       >
-        <nav className="container mx-auto px-4 py-8">
-          <div className="flex justify-center space-x-6 mb-8">
-            <a 
-              href="https://instagram.com/galeriemnc" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-900 hover:text-gray-500 transition-colors"
+        {/* Bouton de fermeture (croix) */}
+        <button
+          onClick={() => setIsOpen(false)}
+          className="absolute top-6 right-3 z-50 text-gray-900 hover:text-gray-500"
+        >
+          <X size={32} />
+        </button>
+
+        <nav className="container mx-auto px-6 py-20">
+          {/* Top bar : logo gauche / réseaux droite */}
+          <div className="flex items-center justify-between mb-8">
+            <Link 
+              to="/" 
+              className="flex items-center h-20"
+              onClick={() => setIsOpen(false)}
             >
-              <Instagram size={24} />
-            </a>
-            <a 
-              href="https://facebook.com/galeriemnc" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-gray-900 hover:text-gray-500 transition-colors"
-            >
-              <Facebook size={24} />
-            </a>
+              <img 
+                src={logo}
+                alt="Galerie MNC" 
+                className="h-24 w-24 object-contain"
+              />
+            </Link>
+
+            <div className="flex items-center space-x-6">
+              <a 
+                href="https://instagram.com/galeriemnc" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-900 hover:text-gray-500 transition-colors"
+              >
+                <Instagram size={28} />
+              </a>
+              <a 
+                href="https://facebook.com/galeriemnc" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-gray-900 hover:text-gray-500 transition-colors"
+              >
+                <Facebook size={28} />
+              </a>
+            </div>
           </div>
+
+          {/* Liens de navigation */}
           <ul className="space-y-6">
             <li>
               <Link 

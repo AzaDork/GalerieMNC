@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { sanityClient } from '../utils/sanity';
+import ArtworkModal from '../components/ArtworkModal';
 
 interface Artwork {
   _id: string;
   title?: string;
+  year?: string;
+  medium?: string;
+  dimensions?: string;
   image?: { asset?: { url?: string } };
 }
 
@@ -21,7 +25,21 @@ const ArtistDetailPage: React.FC = () => {
   const [artist, setArtist] = useState<ArtistDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [showAllExposMobile, setShowAllExposMobile] = useState(false);
+  const [selectedArtwork, setSelectedArtwork] = useState<Artwork | null>(null);
 
+  // 🚀 Empêche de scroller quand la modale est ouverte
+  useEffect(() => {
+    if (selectedArtwork) {
+      const previous = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.overflow = previous || 'auto';
+      };
+    }
+  }, [selectedArtwork]);
+
+  // 🔎 Récupération Sanity
   useEffect(() => {
     if (!slug) return;
 
@@ -33,6 +51,9 @@ const ArtistDetailPage: React.FC = () => {
       "artworks": *[_type == "artwork" && references(^._id)]{
         _id,
         title,
+        year,
+        medium,
+        dimensions,
         image { asset->{url} }
       }
     }`;
@@ -67,6 +88,7 @@ const ArtistDetailPage: React.FC = () => {
 
   const imageUrl = artist.photo?.asset?.url;
 
+  // ⚙️ Split des expositions
   const exhibitionLines = artist.exhibitions
     ? artist.exhibitions
         .split('\n')
@@ -75,9 +97,11 @@ const ArtistDetailPage: React.FC = () => {
     : [];
 
   const hasMoreExpos = exhibitionLines.length > 10;
-  const mobileExpos = showAllExposMobile || !hasMoreExpos
-    ? exhibitionLines
-    : exhibitionLines.slice(0, 10);
+
+  const mobileExpos =
+    showAllExposMobile || !hasMoreExpos
+      ? exhibitionLines
+      : exhibitionLines.slice(0, 10);
 
   const middle = Math.ceil(exhibitionLines.length / 2);
   const leftExpos = exhibitionLines.slice(0, middle);
@@ -89,6 +113,7 @@ const ArtistDetailPage: React.FC = () => {
         {artist.name}
       </h1>
 
+      {/* --- BIO + PHOTO --- */}
       <section className="grid md:grid-cols-2 gap-10 items-start">
         {imageUrl && (
           <div className="w-full max-h-[380px] overflow-hidden rounded-lg bg-gray-100">
@@ -107,10 +132,12 @@ const ArtistDetailPage: React.FC = () => {
         )}
       </section>
 
+      {/* --- EXPOSITIONS --- */}
       {exhibitionLines.length > 0 && (
         <section className="space-y-6">
           <h2 className="text-2xl md:text-3xl font-semibold">Expositions</h2>
 
+          {/* Mobile */}
           <div className="md:hidden space-y-3 text-sm">
             <ul className="space-y-1 italic">
               {mobileExpos.map((line, idx) => (
@@ -131,12 +158,14 @@ const ArtistDetailPage: React.FC = () => {
             )}
           </div>
 
+          {/* Desktop */}
           <div className="hidden md:grid md:grid-cols-2 gap-8 text-sm md:text-base">
             <ul className="space-y-1 italic">
               {leftExpos.map((line, idx) => (
                 <li key={idx}>{line}</li>
               ))}
             </ul>
+
             <ul className="space-y-1 italic">
               {rightExpos.map((line, idx) => (
                 <li key={idx}>{line}</li>
@@ -145,31 +174,43 @@ const ArtistDetailPage: React.FC = () => {
           </div>
         </section>
       )}
-        {artist.artworks && artist.artworks.length > 0 && (
+
+      {/* --- ŒUVRES --- */}
+      {artist.artworks && artist.artworks.length > 0 && (
         <section className="space-y-6">
-            <h2 className="text-2xl md:text-3xl font-semibold">Ses œuvres</h2>
+          <h2 className="text-2xl md:text-3xl font-semibold">Ses œuvres</h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {artist.artworks.map((art) => {
-                const url = art.image?.asset?.url;
-                if (!url) return null;
+              const url = art.image?.asset?.url;
+              if (!url) return null;
 
-                return (
-                <div
-                    key={art._id}
-                    className="overflow-hidden rounded-md bg-gray-100 aspect-square"
+              return (
+                <button
+                  key={art._id}
+                  type="button"
+                  onClick={() => setSelectedArtwork(art)}
+                  className="overflow-hidden rounded-md bg-gray-100 aspect-square group"
                 >
-                    <img
+                  <img
                     src={url}
                     alt={art.title || ''}
-                    className="w-full h-full object-cover duration-300 hover:scale-105"
-                    />
-                </div>
-                );
+                    className="w-full h-full object-cover duration-300 group-hover:scale-105"
+                  />
+                </button>
+              );
             })}
-            </div>
+          </div>
         </section>
-        )}
+      )}
+
+      {selectedArtwork && (
+        <ArtworkModal
+          artwork={selectedArtwork}
+          artistName={artist.name}
+          onClose={() => setSelectedArtwork(null)}
+        />
+      )}
     </div>
   );
 };
