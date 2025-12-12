@@ -13,7 +13,6 @@ import ArtistDetailPage from './pages/ArtistDetailPage';
 import LegalInformationPage from './pages/LegalInformationPage';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
-
 const HeaderSwitcher: React.FC = () => {
   const location = useLocation();
   return location.pathname === '/' ? <HeaderHome /> : <Header />;
@@ -21,7 +20,7 @@ const HeaderSwitcher: React.FC = () => {
 
 function App() {
   return (
-    <Router basename="/GalerieMNC">
+    <Router>
       <ScrollToTop />
       <div className="font-sans text-gray-900">
         <HeaderSwitcher />
