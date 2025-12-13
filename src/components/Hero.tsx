@@ -41,7 +41,7 @@ const Hero: React.FC = () => {
               Galerie MNC
             </h1>
             <p className="text-xl md:text-2xl font-light mb-8 opacity-0 animate-fade-in animation-delay-200">
-              Art contemporain
+              Art contemporain<br />
               Atelier d'encadrement
             </p>
             <Link 
