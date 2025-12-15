@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { sanityClient } from '../utils/sanity';
@@ -94,6 +94,34 @@ const ArtistDetailPage: React.FC = () => {
 
   const imageUrl = artist.photo?.asset?.url;
 
+  // ✅ SEO (sans hooks)
+  const canonicalUrl = `https://galeriemnc.com/artistes/${slug ?? ''}`;
+  const seoTitle = `${artist.name} – Artiste | Galerie MNC`;
+  const seoDescription =
+    artist.bio && artist.bio.trim().length > 0
+      ? stripAndTruncate(artist.bio, 160)
+      : `Découvrez ${artist.name}, artiste présentée par la Galerie MNC : biographie, expositions et œuvres.`;
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'VisualArtist',
+    name: artist.name,
+    url: canonicalUrl,
+    image: imageUrl,
+    worksFor: {
+      '@type': 'ArtGallery',
+      name: 'Galerie MNC',
+      url: 'https://galeriemnc.com',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '36 rue des Saints-Pères',
+        postalCode: '75007',
+        addressLocality: 'Paris',
+        addressCountry: 'FR',
+      },
+    },
+  };
+
   // ⚙️ Split des expositions
   const exhibitionLines = artist.exhibitions
     ? artist.exhibitions
@@ -112,37 +140,6 @@ const ArtistDetailPage: React.FC = () => {
   const middle = Math.ceil(exhibitionLines.length / 2);
   const leftExpos = exhibitionLines.slice(0, middle);
   const rightExpos = exhibitionLines.slice(middle);
-
-  // ✅ SEO
-  const canonicalUrl = `https://galeriemnc.com/artistes/${slug}`;
-
-  const seoTitle = `${artist.name} – Artiste | Galerie MNC`;
-
-  const seoDescription = artist.bio && artist.bio.trim().length > 0
-    ? stripAndTruncate(artist.bio, 160)
-    : `Découvrez ${artist.name}, artiste présentée par la Galerie MNC : biographie, expositions et œuvres.`;
-
-  const jsonLd = useMemo(() => {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'VisualArtist',
-      name: artist.name,
-      url: canonicalUrl,
-      image: imageUrl,
-      worksFor: {
-        '@type': 'ArtGallery',
-        name: 'Galerie MNC',
-        url: 'https://galeriemnc.com',
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: '36 rue des Saints-Pères',
-          postalCode: '75007',
-          addressLocality: 'Paris',
-          addressCountry: 'FR',
-        },
-      },
-    };
-  }, [artist.name, canonicalUrl, imageUrl]);
 
   return (
     <>
