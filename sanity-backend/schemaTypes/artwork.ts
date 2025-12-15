@@ -2,22 +2,22 @@ import { defineType } from 'sanity'
 
 export default defineType({
   name: 'artwork',
-  title: 'Artwork',
+  title: 'Œuvre',
   type: 'document',
   fields: [
     {
       name: 'title',
-      title: 'Title',
+      title: 'Titre',
       type: 'string',
     },
     {
       name: 'year',
-      title: 'Year',
+      title: 'Édition',
       type: 'string',
     },
     {
       name: 'medium',
-      title: 'Medium',
+      title: 'Technique',
       type: 'string',
     },
     {
@@ -29,10 +29,13 @@ export default defineType({
       name: 'image',
       title: 'Image',
       type: 'image',
+      options: {
+        hotspot: true,
+      },
     },
     {
       name: 'artist',
-      title: 'Artist',
+      title: 'Artiste',
       type: 'reference',
       to: [{ type: 'artist' }],
     },
