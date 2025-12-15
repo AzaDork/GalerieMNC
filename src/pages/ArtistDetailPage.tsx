@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { sanityClient } from '../utils/sanity';
 import ArtworkModal from '../components/ArtworkModal';
 
@@ -18,6 +19,11 @@ interface ArtistDetail {
   exhibitions?: string;
   photo?: { asset?: { url?: string } };
   artworks?: Artwork[];
+}
+
+function stripAndTruncate(text: string, max = 160) {
+  const cleaned = text.replace(/\s+/g, ' ').trim();
+  return cleaned.length > max ? cleaned.slice(0, max - 1) + '…' : cleaned;
 }
 
 const ArtistDetailPage: React.FC = () => {
@@ -107,111 +113,171 @@ const ArtistDetailPage: React.FC = () => {
   const leftExpos = exhibitionLines.slice(0, middle);
   const rightExpos = exhibitionLines.slice(middle);
 
+  // ✅ SEO
+  const canonicalUrl = `https://galeriemnc.com/artistes/${slug}`;
+
+  const seoTitle = `${artist.name} – Artiste | Galerie MNC`;
+
+  const seoDescription = artist.bio && artist.bio.trim().length > 0
+    ? stripAndTruncate(artist.bio, 160)
+    : `Découvrez ${artist.name}, artiste présentée par la Galerie MNC : biographie, expositions et œuvres.`;
+
+  const jsonLd = useMemo(() => {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'VisualArtist',
+      name: artist.name,
+      url: canonicalUrl,
+      image: imageUrl,
+      worksFor: {
+        '@type': 'ArtGallery',
+        name: 'Galerie MNC',
+        url: 'https://galeriemnc.com',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '36 rue des Saints-Pères',
+          postalCode: '75007',
+          addressLocality: 'Paris',
+          addressCountry: 'FR',
+        },
+      },
+    };
+  }, [artist.name, canonicalUrl, imageUrl]);
+
   return (
-    <div className="pt-40 max-w-6xl mx-auto px-4 pb-16 space-y-16">
-      <h1 className="text-3xl md:text-4xl font-light text-center mb-8">
-        {artist.name}
-      </h1>
+    <>
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <link rel="canonical" href={canonicalUrl} />
 
-      {/* --- BIO + PHOTO --- */}
-      <section className="grid md:grid-cols-2 gap-10 items-start">
-        {imageUrl && (
-          <div className="w-full max-h-[520px] rounded-lg bg-white-100 flex items-center justify-center">
-            <img
-              src={imageUrl}
-              alt={artist.name}
-              className="max-h-[520px] w-auto object-contain"
-            />
-          </div>
-        )}
+        {/* OpenGraph */}
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        {imageUrl ? <meta property="og:image" content={imageUrl} /> : null}
 
-        {artist.bio && (
-          <div className="text-gray-800 leading-relaxed whitespace-pre-line">
-            {artist.bio}
-          </div>
-        )}
-      </section>
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDescription} />
+        {imageUrl ? <meta name="twitter:image" content={imageUrl} /> : null}
 
-      {/* --- EXPOSITIONS --- */}
-      {exhibitionLines.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="text-2xl md:text-3xl font-semibold">Expositions</h2>
+        {/* JSON-LD */}
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      </Helmet>
 
-          {/* Mobile */}
-          <div className="md:hidden space-y-3 text-sm">
-            <ul className="space-y-1 italic">
-              {mobileExpos.map((line, idx) => (
-                <li key={idx}>{line}</li>
-              ))}
-            </ul>
+      <div className="pt-40 max-w-6xl mx-auto px-4 pb-16 space-y-16">
+        <h1 className="text-3xl md:text-4xl font-light text-center mb-8">
+          {artist.name}
+        </h1>
 
-            {hasMoreExpos && (
-              <button
-                type="button"
-                onClick={() => setShowAllExposMobile((prev) => !prev)}
-                className="mt-2 text-xs font-medium underline underline-offset-4"
-              >
-                {showAllExposMobile
-                  ? 'Réduire la liste'
-                  : 'Afficher toutes les expositions'}
-              </button>
-            )}
-          </div>
+        {/* --- BIO + PHOTO --- */}
+        <section className="grid md:grid-cols-2 gap-10 items-start">
+          {imageUrl && (
+            <div className="w-full max-h-[520px] rounded-lg bg-white-100 flex items-center justify-center">
+              <img
+                src={imageUrl}
+                alt={`Portrait de ${artist.name} – Galerie MNC`}
+                className="max-h-[520px] w-auto object-contain"
+              />
+            </div>
+          )}
 
-          {/* Desktop */}
-          <div className="hidden md:grid md:grid-cols-2 gap-8 text-sm md:text-base">
-            <ul className="space-y-1 italic">
-              {leftExpos.map((line, idx) => (
-                <li key={idx}>{line}</li>
-              ))}
-            </ul>
-
-            <ul className="space-y-1 italic">
-              {rightExpos.map((line, idx) => (
-                <li key={idx}>{line}</li>
-              ))}
-            </ul>
-          </div>
+          {artist.bio && (
+            <div className="text-gray-800 leading-relaxed whitespace-pre-line">
+              {artist.bio}
+            </div>
+          )}
         </section>
-      )}
 
-      {/* --- ŒUVRES --- */}
-      {artist.artworks && artist.artworks.length > 0 && (
-        <section className="space-y-6">
-          <h2 className="text-2xl md:text-3xl font-semibold">Ses œuvres</h2>
+        {/* --- EXPOSITIONS --- */}
+        {exhibitionLines.length > 0 && (
+          <section className="space-y-6">
+            <h2 className="text-2xl md:text-3xl font-semibold">Expositions</h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {artist.artworks.map((art) => {
-              const url = art.image?.asset?.url;
-              if (!url) return null;
+            {/* Mobile */}
+            <div className="md:hidden space-y-3 text-sm">
+              <ul className="space-y-1 italic">
+                {mobileExpos.map((line, idx) => (
+                  <li key={idx}>{line}</li>
+                ))}
+              </ul>
 
-              return (
+              {hasMoreExpos && (
                 <button
-                  key={art._id}
                   type="button"
-                  onClick={() => setSelectedArtwork(art)}
-                  className="overflow-hidden rounded-md bg-gray-100 aspect-square group"
+                  onClick={() => setShowAllExposMobile((prev) => !prev)}
+                  className="mt-2 text-xs font-medium underline underline-offset-4"
                 >
-                  <img
-                    src={url}
-                    alt={art.title || ''}
-                    className="w-full h-full object-cover duration-300 group-hover:scale-105"
-                  />
+                  {showAllExposMobile
+                    ? 'Réduire la liste'
+                    : 'Afficher toutes les expositions'}
                 </button>
-              );
-            })}
-          </div>
-        </section>
-      )}
+              )}
+            </div>
 
-      {selectedArtwork && (
-        <ArtworkModal
-          artwork={selectedArtwork}
-          artistName={artist.name}
-          onClose={() => setSelectedArtwork(null)}
-        />
-      )}
-    </div>
+            {/* Desktop */}
+            <div className="hidden md:grid md:grid-cols-2 gap-8 text-sm md:text-base">
+              <ul className="space-y-1 italic">
+                {leftExpos.map((line, idx) => (
+                  <li key={idx}>{line}</li>
+                ))}
+              </ul>
+
+              <ul className="space-y-1 italic">
+                {rightExpos.map((line, idx) => (
+                  <li key={idx}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
+        {/* --- ŒUVRES --- */}
+        {artist.artworks && artist.artworks.length > 0 && (
+          <section className="space-y-6">
+            <h2 className="text-2xl md:text-3xl font-semibold">Ses œuvres</h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {artist.artworks.map((art) => {
+                const url = art.image?.asset?.url;
+                if (!url) return null;
+
+                const alt = art.title
+                  ? `Œuvre "${art.title}" – ${artist.name} – Galerie MNC`
+                  : `Œuvre de ${artist.name} – Galerie MNC`;
+
+                return (
+                  <button
+                    key={art._id}
+                    type="button"
+                    onClick={() => setSelectedArtwork(art)}
+                    className="overflow-hidden rounded-md bg-gray-100 aspect-square group"
+                  >
+                    <img
+                      src={url}
+                      alt={alt}
+                      className="w-full h-full object-cover duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {selectedArtwork && (
+          <ArtworkModal
+            artwork={selectedArtwork}
+            artistName={artist.name}
+            onClose={() => setSelectedArtwork(null)}
+          />
+        )}
+      </div>
+    </>
   );
 };
 
