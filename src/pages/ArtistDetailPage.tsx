@@ -116,7 +116,7 @@ const ArtistDetailPage: React.FC = () => {
       {/* --- BIO + PHOTO --- */}
       <section className="grid md:grid-cols-2 gap-10 items-start">
         {imageUrl && (
-          <div className="w-full max-h-[520px] rounded-lg bg-gray-100 flex items-center justify-center">
+          <div className="w-full max-h-[520px] rounded-lg bg-white-100 flex items-center justify-center">
             <img
               src={imageUrl}
               alt={artist.name}
