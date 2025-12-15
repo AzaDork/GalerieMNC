@@ -120,7 +120,7 @@ const ArtistDetailPage: React.FC = () => {
             <img
               src={imageUrl}
               alt={artist.name}
-              className="w-full h-auto object-contain"
+              className="w-full max-w-[420px] h-auto object-contain"
             />
           </div>
         )}
