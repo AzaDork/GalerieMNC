@@ -10,156 +10,158 @@ const PrivacyPolicyPage: React.FC = () => {
       <main className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-semibold mb-8">Politique de confidentialité</h1>
 
-        <p className="mb-6">
-          Cette politique de confidentialité explique comment le site <strong>Galerie MNC</strong> collecte,
-          utilise et protège vos données personnelles, conformément au Règlement Général sur la Protection
-          des Données (RGPD).
+        <p className="text-gray-800 leading-relaxed mb-8">
+          Cette politique de confidentialité décrit comment <strong>Galerie MNC</strong> collecte, utilise et
+          protège les données personnelles des utilisateurs, conformément au RGPD.
         </p>
 
-        {/* 1. Données collectées */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">1. Données collectées</h2>
+        {/* 1 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">1. Responsable du traitement</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Le responsable du traitement des données est :
+            <br />
+            <strong>Galerie MNC</strong> — <span className="italic">À compléter (Nom / Prénom)</span>
+            <br />
+            Email : <span className="italic">À compléter</span>
+          </p>
+        </section>
 
-          <div>
-            <h3 className="text-lg font-semibold">1.1. Formulaire de contact</h3>
-            <p>
-              Lorsque vous utilisez le formulaire de contact, les informations suivantes peuvent être
-              collectées :
+        {/* 2 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">2. Données collectées</h2>
+
+          <div className="space-y-2">
+            <h3 className="text-lg font-semibold">2.1 Formulaire de contact (EmailJS)</h3>
+            <p className="text-gray-800 leading-relaxed">
+              Lorsque vous nous contactez via le formulaire, nous collectons les informations suivantes :
             </p>
-            <ul className="list-disc list-inside mt-2">
+            <ul className="list-disc list-inside text-gray-800 leading-relaxed">
               <li>Nom</li>
               <li>Adresse email</li>
               <li>Sujet</li>
               <li>Message</li>
             </ul>
-            <p className="mt-2">
-              Ces données sont nécessaires pour répondre à votre demande. Les messages sont transmis via le
-              service EmailJS.
+            <p className="text-gray-800 leading-relaxed">
+              Ces données sont nécessaires pour répondre à votre demande. L’envoi est réalisé via <strong>EmailJS</strong>.
             </p>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold">1.2. Données techniques</h3>
-            <p>
-              Lors de votre navigation, certaines données techniques peuvent être collectées de manière
-              automatique :
+          <div className="space-y-2 pt-4">
+            <h3 className="text-lg font-semibold">2.2 Données d’audience (Plausible Analytics)</h3>
+            <p className="text-gray-800 leading-relaxed">
+              Nous utilisons <strong>Plausible Analytics</strong> pour mesurer l’audience du site de manière respectueuse de la
+              vie privée. Plausible est conçu pour fonctionner sans cookies de tracking et en limitant les données collectées.
             </p>
-            <ul className="list-disc list-inside mt-2">
-              <li>Adresse IP</li>
-              <li>Navigateur utilisé</li>
-              <li>Informations sur l’appareil</li>
-              <li>Pages consultées</li>
-            </ul>
-            <p className="mt-2">
-              Des cookies strictement nécessaires au fonctionnement du site peuvent être utilisés. Aucun
-              cookie de tracking (type Google Analytics) n’est déposé, sauf mention contraire ultérieure.
+            <p className="text-gray-800 leading-relaxed">
+              Les données d’audience peuvent inclure des informations agrégées comme les pages vues, les sources de trafic ou
+              le type d’appareil, sans identifier directement les utilisateurs.
             </p>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold">1.3. Contenu Sanity</h3>
-            <p>
-              Le contenu éditorial du site (textes, images d’œuvres, fiches artistes) est hébergé et géré via
-              la plateforme Sanity. Aucune donnée personnelle des visiteurs n’est collectée via Sanity.
+          <div className="space-y-2 pt-4">
+            <h3 className="text-lg font-semibold">2.3 Données techniques (hébergement Netlify)</h3>
+            <p className="text-gray-800 leading-relaxed">
+              Lors de l’accès au site, des données techniques peuvent être traitées (ex : adresse IP, logs serveur) notamment
+              pour la sécurité, la prévention des abus et le bon fonctionnement du service.
+            </p>
+          </div>
+
+          <div className="space-y-2 pt-4">
+            <h3 className="text-lg font-semibold">2.4 Contenu géré via Sanity</h3>
+            <p className="text-gray-800 leading-relaxed">
+              Le contenu éditorial (artistes, œuvres, textes, images) est géré via <strong>Sanity</strong>. Sanity n’est pas
+              utilisé pour collecter des données personnelles des visiteurs.
             </p>
           </div>
         </section>
 
-        {/* 2. Finalités */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">2. Finalités de la collecte</h2>
-          <p>Les données collectées sont utilisées pour les finalités suivantes :</p>
-          <ul className="list-disc list-inside mt-2">
+        {/* 3 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">3. Finalités</h2>
+          <ul className="list-disc list-inside text-gray-800 leading-relaxed">
             <li>Répondre aux demandes envoyées via le formulaire de contact</li>
-            <li>Assurer le bon fonctionnement et la sécurité du site</li>
-            <li>Améliorer éventuellement l’expérience utilisateur</li>
+            <li>Mesurer l’audience et améliorer le site (statistiques agrégées via Plausible)</li>
+            <li>Assurer la sécurité et le bon fonctionnement du site (hébergement Netlify)</li>
           </ul>
         </section>
 
-        {/* 3. Base légale */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">3. Base légale (RGPD)</h2>
-          <p>
-            Les traitements de données reposent sur les bases légales suivantes :
-          </p>
-          <ul className="list-disc list-inside mt-2">
+        {/* 4 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">4. Base légale</h2>
+          <ul className="list-disc list-inside text-gray-800 leading-relaxed">
             <li>
-              <strong>Consentement</strong> : pour les données envoyées via le formulaire de contact.
+              <strong>Consentement</strong> : lorsque vous envoyez un message via le formulaire de contact.
             </li>
             <li>
-              <strong>Intérêt légitime</strong> : pour garantir la sécurité, la maintenance et
-              l’amélioration du site.
+              <strong>Intérêt légitime</strong> : mesures de sécurité et statistiques d’audience non intrusives.
             </li>
           </ul>
         </section>
 
-        {/* 4. Transmission des données */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">4. Transmission des données</h2>
-          <h3 className="text-lg font-semibold">4.1. EmailJS</h3>
-          <p>
-            Les messages envoyés via le formulaire de contact sont transmis par le service EmailJS, qui peut
-            être situé hors de l’Union Européenne.
+        {/* 5 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">5. Destinataires et transferts</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Les données peuvent être traitées par des prestataires techniques, selon les services utilisés :
           </p>
-          <p>
-            EmailJS met en place des mesures de protection conformes au RGPD. Pour plus d’informations,
-            veuillez consulter la politique de confidentialité d’EmailJS sur leur site officiel.
+          <ul className="list-disc list-inside text-gray-800 leading-relaxed">
+            <li>
+              <strong>EmailJS</strong> (envoi des messages du formulaire)
+            </li>
+            <li>
+              <strong>Plausible Analytics</strong> (mesure d’audience)
+            </li>
+            <li>
+              <strong>Netlify</strong> (hébergement / déploiement, logs techniques)
+            </li>
+            <li>
+              <strong>Sanity</strong> (hébergement du contenu CMS)
+            </li>
+          </ul>
+          <p className="text-gray-800 leading-relaxed">
+            Certains de ces prestataires peuvent être situés hors de l’Union Européenne. Dans ce cas, des garanties
+            appropriées (ex : clauses contractuelles types) peuvent être mises en place par ces prestataires.
           </p>
         </section>
 
-        {/* 5. Durée de conservation */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">5. Durée de conservation</h2>
-          <p>Les données sont conservées pour les durées suivantes :</p>
-          <ul className="list-disc list-inside mt-2">
+        {/* 6 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">6. Durée de conservation</h2>
+          <ul className="list-disc list-inside text-gray-800 leading-relaxed">
             <li>
-              Messages envoyés via le formulaire : conservés le temps nécessaire au traitement de la demande,
-              puis supprimés.
+              Données du formulaire : conservées le temps nécessaire au traitement de la demande, puis supprimées.
             </li>
             <li>
-              Données techniques (logs) : conservées jusqu’à 12 mois maximum, à des fins de sécurité et de
-              maintenance.
+              Données d’audience : conservées selon la politique de rétention de Plausible (données statistiques).
+            </li>
+            <li>
+              Logs techniques (Netlify) : conservés pour une durée limitée, à des fins de sécurité et de maintenance.
             </li>
           </ul>
         </section>
 
-        {/* 6. Droits des utilisateurs */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">6. Vos droits</h2>
-          <p>Conformément au RGPD, vous disposez des droits suivants :</p>
-          <ul className="list-disc list-inside mt-2">
-            <li>Droit d’accès à vos données</li>
-            <li>Droit de rectification</li>
-            <li>Droit d’opposition</li>
-            <li>Droit à l’effacement (droit à l’oubli)</li>
-            <li>Droit à la limitation du traitement</li>
-            <li>Droit à la portabilité des données</li>
-          </ul>
-          <p className="mt-2">
-            Pour exercer vos droits, vous pouvez nous contacter à l’adresse suivante :
-            <br />
-            Email : {/* À compléter */} votre.email@example.com
+        {/* 7 */}
+        <section className="space-y-3 mb-10">
+          <h2 className="text-2xl font-semibold">7. Vos droits</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Conformément au RGPD, vous disposez notamment des droits d’accès, de rectification, d’effacement, d’opposition
+            et de limitation du traitement.
+          </p>
+          <p className="text-gray-800 leading-relaxed">
+            Pour exercer vos droits, vous pouvez nous contacter à : <span className="italic">À compléter (email)</span>
           </p>
         </section>
 
-        {/* 7. Sécurité */}
-        <section className="space-y-3 mb-8">
-          <h2 className="text-2xl font-semibold">7. Sécurité</h2>
-          <p>
-            Nous mettons en œuvre des mesures techniques et organisationnelles appropriées pour protéger vos
-            données contre la perte, l’accès non autorisé, la divulgation, l’altération ou la destruction.
-          </p>
-        </section>
-
-        {/* 8. Modifications */}
+        {/* 8 */}
         <section className="space-y-3">
-          <h2 className="text-2xl font-semibold">8. Modifications de la politique</h2>
-          <p>
-            La présente politique de confidentialité peut être mise à jour pour refléter les évolutions
-            législatives, réglementaires ou techniques.
+          <h2 className="text-2xl font-semibold">8. Mise à jour</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Cette politique peut être modifiée à tout moment pour refléter les évolutions légales, réglementaires ou
+            techniques.
           </p>
-          <p>
-            Dernière mise à jour : {/* À compléter si tu veux une date fixe */} 11/12/2025.
+          <p className="text-gray-800 leading-relaxed">
+            Dernière mise à jour : <span className="italic">À compléter (ex : 16/12/2025)</span>
           </p>
         </section>
       </main>

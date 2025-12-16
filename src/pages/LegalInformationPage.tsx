@@ -10,67 +10,68 @@ const LegalInformationPage: React.FC = () => {
       <main className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-semibold mb-8">Mentions légales</h1>
 
-        <section className="space-y-4 mb-10">
-          <h2 className="text-xl font-semibold">Propriétaire du site</h2>
-          <p>
+        <section className="space-y-2 mb-10">
+          <h2 className="text-xl font-semibold">Éditeur du site</h2>
+          <p className="text-gray-800 leading-relaxed">
             <strong>Galerie MNC</strong>
             <br />
-            Nom / Prénom : {/* À compléter */} Votre nom
+            Nom / Prénom : <span className="italic">À compléter</span>
             <br />
-            Adresse : {/* À compléter */} Votre adresse postale
+            Statut : <span className="italic">À compléter (ex : Auto-entrepreneur)</span>
             <br />
-            Email : {/* À compléter */} votre.email@example.com
+            SIRET : <span className="italic">À compléter</span>
             <br />
-            Téléphone : {/* À compléter */} votre numéro de téléphone
-          </p>
-        </section>
-
-        <section className="space-y-2 mb-10">
-          <h2 className="text-xl font-semibold">Statut juridique</h2>
-          <p>
-            {/* Exemple : Auto-entrepreneur */}
-            Statut : Auto-entrepreneur
+            Adresse : <span className="italic">À compléter</span>
             <br />
-            SIRET : {/* À compléter */} 000 000 000 00000
+            Email : <span className="italic">À compléter</span>
+            <br />
+            Téléphone : <span className="italic">À compléter</span>
           </p>
         </section>
 
         <section className="space-y-2 mb-10">
           <h2 className="text-xl font-semibold">Directeur de la publication</h2>
-          <p>
-            Directeur de la publication : {/* À compléter */} Votre nom
+          <p className="text-gray-800 leading-relaxed">
+            <span className="italic">À compléter (Nom / Prénom)</span>
           </p>
         </section>
 
         <section className="space-y-2 mb-10">
-          <h2 className="text-xl font-semibold">Conception et développement</h2>
-          <p>
-            Site réalisé par {/* À compléter */} Galerie MNC.
+          <h2 className="text-xl font-semibold">Nom de domaine</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Le nom de domaine est enregistré et géré via <strong>WordPress (Automattic / WordPress.com)</strong>.
           </p>
         </section>
 
         <section className="space-y-2 mb-10">
-          <h2 className="text-xl font-semibold">Hébergement</h2>
-          <p>
-            Le site est hébergé par :
+          <h2 className="text-xl font-semibold">Hébergement / Déploiement</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Le site est hébergé et déployé via <strong>Netlify</strong>.
             <br />
-            <strong>{/* À compléter */} Nom de l’hébergeur (ex : Vercel, Netlify, OVH, etc.)</strong>
+            Netlify, Inc.
             <br />
-            Adresse : {/* À compléter */} Adresse de l’hébergeur
+            2325 3rd Street, Suite 296, San Francisco, California 94107, USA
             <br />
-            Site : {/* À compléter */} https://www.exemple-hebergeur.com
+            Site : https://www.netlify.com
+          </p>
+        </section>
+
+        <section className="space-y-2 mb-10">
+          <h2 className="text-xl font-semibold">Gestion de contenu (CMS)</h2>
+          <p className="text-gray-800 leading-relaxed">
+            Le contenu du site (textes, artistes, œuvres, images) est géré via le CMS <strong>Sanity</strong>.
           </p>
         </section>
 
         <section className="space-y-2 mb-10">
           <h2 className="text-xl font-semibold">Propriété intellectuelle</h2>
-          <p>
-            L’ensemble du contenu présent sur ce site (images, œuvres, textes, logos, design, code, etc.)
-            est protégé par le droit d’auteur et plus largement par la législation sur la propriété
-            intellectuelle.
+          <p className="text-gray-800 leading-relaxed">
+            L’ensemble du contenu présent sur ce site (œuvres, images, photographies, textes, logo, identité
+            visuelle, code) est protégé par le droit d’auteur et, plus largement, par la législation relative
+            à la propriété intellectuelle.
           </p>
-          <p>
-            Toute reproduction, représentation, modification, publication, adaptation de tout ou partie des
+          <p className="text-gray-800 leading-relaxed">
+            Toute reproduction, représentation, modification, publication ou adaptation de tout ou partie des
             éléments du site, quel que soit le moyen ou le procédé utilisé, est interdite sans autorisation
             écrite préalable.
           </p>
@@ -78,23 +79,21 @@ const LegalInformationPage: React.FC = () => {
 
         <section className="space-y-2 mb-10">
           <h2 className="text-xl font-semibold">Responsabilité</h2>
-          <p>
-            La Galerie MNC s’efforce de fournir des informations aussi précises que possible. Toutefois,
-            elle ne pourra être tenue responsable des omissions, des inexactitudes ou des carences dans la
-            mise à jour, qu’elles soient de son fait ou du fait de partenaires tiers.
+          <p className="text-gray-800 leading-relaxed">
+            La Galerie MNC s’efforce de fournir des informations aussi précises que possible. Toutefois, elle
+            ne pourra être tenue responsable des omissions, des inexactitudes ou des carences dans la mise à
+            jour, qu’elles soient de son fait ou du fait de partenaires.
           </p>
-          <p>
-            L’utilisateur du site reconnaît utiliser les informations et outils disponibles sous sa
-            responsabilité exclusive.
+          <p className="text-gray-800 leading-relaxed">
+            L’utilisateur reconnaît utiliser le site sous sa responsabilité exclusive.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-xl font-semibold">Liens hypertextes</h2>
-          <p>
-            Le site peut contenir des liens vers d’autres sites tiers. La Galerie MNC n’exerce aucun
-            contrôle sur le contenu de ces sites et ne peut en aucun cas être tenue responsable de leur
-            contenu ou de tout dommage pouvant résulter de leur consultation.
+          <p className="text-gray-800 leading-relaxed">
+            Le site peut contenir des liens vers des sites tiers. La Galerie MNC n’exerce aucun contrôle sur
+            ces sites et ne peut être tenue responsable de leur contenu.
           </p>
         </section>
       </main>
