@@ -1,44 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { urlFor } from '../utils/sanity'; 
+
+interface Artwork {
+  title?: string;
+  year?: string;
+  medium?: string;
+  dimensions?: string;
+  image?: any; // Sanity image object (asset._ref, etc.)
+}
 
 interface ArtworkModalProps {
-  artwork: {
-    title?: string;
-    year?: string;
-    medium?: string;
-    dimensions?: string;
-    image?: { asset?: { url?: string } };
-  } | null;
+  artwork: Artwork | null;
   artistName: string;
   onClose: () => void;
 }
 
-const ArtworkModal: React.FC<ArtworkModalProps> = ({
-  artwork,
-  artistName,
-  onClose,
-}) => {
+const ArtworkModal: React.FC<ArtworkModalProps> = ({ artwork, artistName, onClose }) => {
   if (!artwork) return null;
 
-  const imageUrl = artwork.image?.asset?.url;
+  const imageUrl = artwork.image
+    ? urlFor(artwork.image).width(1600).auto('format').quality(80).url()
+    : undefined;
+
   const subject = `${artistName} - ${artwork.title ?? 'Œuvre'}`;
 
   return (
-    // Overlay plein écran, SANS scroll
     <div
       className="
-        fixed inset-0 
-        bg-black/50 backdrop-blur-sm 
+        fixed inset-0
+        bg-black/50 backdrop-blur-sm
         z-40
         flex justify-center
         pt-[120px] pb-10
       "
       onClick={onClose}
     >
-      {/* Fenêtre blanche : seule zone scrollable */}
       <div
         className="
-          bg-white rounded-xl shadow-xl 
+          bg-white rounded-xl shadow-xl
           max-w-5xl w-[90%]
           max-h-[calc(100vh-160px)]
           overflow-y-auto
@@ -47,7 +47,6 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
         "
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Bouton fermer */}
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-black text-2xl"
@@ -57,25 +56,22 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
         </button>
 
         <div className="pt-6 space-y-6">
-          {/* Titre */}
           {artwork.title && (
-            <h2 className="text-xl md:text-2xl font-semibold">
-              {artwork.title}
-            </h2>
+            <h2 className="text-xl md:text-2xl font-semibold">{artwork.title}</h2>
           )}
 
-          {/* Image */}
           {imageUrl && (
             <div className="flex justify-center">
               <img
                 src={imageUrl}
-                alt={artwork.title || ''}
+                alt={artwork.title || `Œuvre de ${artistName}`}
                 className="object-contain max-h-[55vh]"
+                loading="lazy"
+                decoding="async"
               />
             </div>
           )}
 
-          {/* Infos */}
           <div className="text-gray-700 space-y-1 text-center text-sm">
             {artwork.year && (
               <p>
@@ -94,7 +90,6 @@ const ArtworkModal: React.FC<ArtworkModalProps> = ({
             )}
           </div>
 
-          {/* Bouton contact */}
           <div className="flex justify-end pt-4">
             <Link
               to={`/nous-contacter?subject=${encodeURIComponent(subject)}`}
