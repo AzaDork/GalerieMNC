@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { sanityClient } from '../utils/sanity';
+import { sanityClient, urlFor } from '../utils/sanity';
 import ArtworkModal from '../components/ArtworkModal';
 
 interface Artwork {
@@ -10,14 +10,14 @@ interface Artwork {
   year?: string;
   medium?: string;
   dimensions?: string;
-  image?: { asset?: { url?: string } };
+  image?: any; // Sanity image object
 }
 
 interface ArtistDetail {
   name: string;
   bio?: string;
   exhibitions?: string;
-  photo?: { asset?: { url?: string } };
+  photo?: any; // Sanity image object
   artworks?: Artwork[];
 }
 
@@ -35,45 +35,45 @@ const ArtistDetailPage: React.FC = () => {
 
   // 🚀 Empêche de scroller quand la modale est ouverte
   useEffect(() => {
-    if (selectedArtwork) {
-      const previous = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+    if (!selectedArtwork) return;
 
-      return () => {
-        document.body.style.overflow = previous || 'auto';
-      };
-    }
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previous || 'auto';
+    };
   }, [selectedArtwork]);
 
   // 🔎 Récupération Sanity
   useEffect(() => {
     if (!slug) return;
 
+    setLoading(true);
+
     const query = `*[_type == "artist" && slug.current == $slug][0]{
       name,
       bio,
       exhibitions,
-      photo { asset->{url} },
+      photo,
       "artworks": *[_type == "artwork" && references(^._id)]{
         _id,
         title,
         year,
         medium,
         dimensions,
-        image { asset->{url} }
+        image
       }
     }`;
 
     sanityClient
       .fetch<ArtistDetail>(query, { slug })
-      .then((data) => {
-        setArtist(data);
-        setLoading(false);
-      })
+      .then((data) => setArtist(data))
       .catch((err) => {
         console.error('Erreur Sanity (artist detail):', err);
-        setLoading(false);
-      });
+        setArtist(null);
+      })
+      .finally(() => setLoading(false));
   }, [slug]);
 
   if (loading) {
@@ -92,22 +92,26 @@ const ArtistDetailPage: React.FC = () => {
     );
   }
 
-  const imageUrl = artist.photo?.asset?.url;
+  // ✅ Images optimisées (Sanity Image URL Builder)
+  const artistImageUrl = artist.photo
+    ? urlFor(artist.photo).width(900).fit('max').auto('format').url()
+    : undefined;
 
   // ✅ SEO (sans hooks)
-  const canonicalUrl = `https://galeriemnc.com/artistes/${slug ?? ''}`;
-  const seoTitle = `${artist.name} – Artiste | Galerie MNC`;
+  const canonicalUrl = `https://galeriemnc.com/artistes/${slug}`;
+  const seoTitle = `${artist.name} | Artiste contemporain – Galerie MNC`;
   const seoDescription =
     artist.bio && artist.bio.trim().length > 0
       ? stripAndTruncate(artist.bio, 160)
-      : `Découvrez ${artist.name}, artiste présentée par la Galerie MNC : biographie, expositions et œuvres.`;
+      : `Découvrez ${artist.name}, artiste contemporain représenté(e) par la Galerie MNC à Paris : biographie, expositions et œuvres.`;
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'VisualArtist',
+    '@id': canonicalUrl,
     name: artist.name,
     url: canonicalUrl,
-    image: imageUrl,
+    image: artistImageUrl,
     worksFor: {
       '@type': 'ArtGallery',
       name: 'Galerie MNC',
@@ -149,17 +153,17 @@ const ArtistDetailPage: React.FC = () => {
         <link rel="canonical" href={canonicalUrl} />
 
         {/* OpenGraph */}
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="profile" />
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
         <meta property="og:url" content={canonicalUrl} />
-        {imageUrl ? <meta property="og:image" content={imageUrl} /> : null}
+        {artistImageUrl ? <meta property="og:image" content={artistImageUrl} /> : null}
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seoTitle} />
         <meta name="twitter:description" content={seoDescription} />
-        {imageUrl ? <meta name="twitter:image" content={imageUrl} /> : null}
+        {artistImageUrl ? <meta name="twitter:image" content={artistImageUrl} /> : null}
 
         {/* JSON-LD */}
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
@@ -172,12 +176,14 @@ const ArtistDetailPage: React.FC = () => {
 
         {/* --- BIO + PHOTO --- */}
         <section className="grid md:grid-cols-2 gap-10 items-start">
-          {imageUrl && (
+          {artistImageUrl && (
             <div className="w-full max-h-[520px] rounded-lg bg-white-100 flex items-center justify-center">
               <img
-                src={imageUrl}
+                src={artistImageUrl}
                 alt={`Portrait de ${artist.name} – Galerie MNC`}
                 className="max-h-[520px] w-auto object-contain"
+                loading="eager"
+                decoding="async"
               />
             </div>
           )}
@@ -239,7 +245,15 @@ const ArtistDetailPage: React.FC = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {artist.artworks.map((art) => {
-                const url = art.image?.asset?.url;
+                const url = art.image
+                  ? urlFor(art.image)
+                      .width(800)
+                      .height(800)
+                      .fit('crop')
+                      .auto('format')
+                      .url()
+                  : undefined;
+
                 if (!url) return null;
 
                 const alt = art.title
@@ -258,6 +272,7 @@ const ArtistDetailPage: React.FC = () => {
                       alt={alt}
                       className="w-full h-full object-cover duration-300 group-hover:scale-105"
                       loading="lazy"
+                      decoding="async"
                     />
                   </button>
                 );

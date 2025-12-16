@@ -7,22 +7,7 @@ interface ArtistsProps {
 }
 
 const Artists: React.FC<ArtistsProps> = ({ artists }) => {
-  if (!artists || artists.length === 0) {
-    return (
-      <div className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-light tracking-tight mb-4">
-            Nos artistes
-          </h2>
-          <p className="text-gray-600 mb-8">
-            Chargement en cours.
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  // 🔤 Tri alphabétique A → Z par nom d’artiste
+  // 🔤 Tri alphabétique
   const sortedArtists = useMemo(() => {
     return [...artists].sort((a, b) =>
       a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' })
@@ -30,27 +15,19 @@ const Artists: React.FC<ArtistsProps> = ({ artists }) => {
   }, [artists]);
 
   return (
-    <div className="py-24">
+    <div className="py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-12">
-          <h2 className="text-3xl font-light tracking-tight mb-4">
-            Nos artistes
-          </h2>
-          <p className="text-gray-600">
-            La Galerie MNC représente des artistes contemporains de talent,
-            chacun portant un regard unique sur le monde.
-          </p>
-        </div>
+        {/* Message de chargement discret */}
+        {artists.length === 0 && (
+          <div className="text-center text-gray-500 mb-12">
+            Chargement des artistes…
+          </div>
+        )}
 
-        {/* Grid */}
+        {/* Grille */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
           {sortedArtists.map((artist) => (
-            <ArtistCard
-              key={artist._id}
-              artist={artist}
-            />
+            <ArtistCard key={artist._id} artist={artist} />
           ))}
         </div>
       </div>
