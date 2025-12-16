@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "generate:sitemap": "node scripts/generate-sitemap.mjs",
+    "build": "npm run generate:sitemap && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
-    "@sanity/client": "^7.2.1",
+    "@sanity/client": "^7.13.2",
     "emailjs-com": "^3.2.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.344.0",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.18",
+    "dotenv": "^17.2.3",
     "eslint": "^9.9.1",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
