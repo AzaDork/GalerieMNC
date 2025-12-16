@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const PrivacyPolicyPage: React.FC = () => {
-  useEffect(() => {
-    document.title = 'Politique de confidentialité | Galerie MNC';
-  }, []);
-
   return (
     <div className="pt-40 pb-16 px-4 md:px-8 bg-white">
+      <Helmet>
+        <title>Politique de confidentialité | Galerie MNC</title>
+        <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href="https://galeriemnc.com/politique-de-confidentialite" />
+      </Helmet>
+
       <main className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-semibold mb-8">Politique de confidentialité</h1>
 
@@ -106,18 +109,10 @@ const PrivacyPolicyPage: React.FC = () => {
             Les données peuvent être traitées par des prestataires techniques, selon les services utilisés :
           </p>
           <ul className="list-disc list-inside text-gray-800 leading-relaxed">
-            <li>
-              <strong>EmailJS</strong> (envoi des messages du formulaire)
-            </li>
-            <li>
-              <strong>Plausible Analytics</strong> (mesure d’audience)
-            </li>
-            <li>
-              <strong>Netlify</strong> (hébergement / déploiement, logs techniques)
-            </li>
-            <li>
-              <strong>Sanity</strong> (hébergement du contenu CMS)
-            </li>
+            <li><strong>EmailJS</strong> (envoi des messages du formulaire)</li>
+            <li><strong>Plausible Analytics</strong> (mesure d’audience)</li>
+            <li><strong>Netlify</strong> (hébergement / déploiement, logs techniques)</li>
+            <li><strong>Sanity</strong> (hébergement du contenu CMS)</li>
           </ul>
           <p className="text-gray-800 leading-relaxed">
             Certains de ces prestataires peuvent être situés hors de l’Union Européenne. Dans ce cas, des garanties
@@ -129,15 +124,9 @@ const PrivacyPolicyPage: React.FC = () => {
         <section className="space-y-3 mb-10">
           <h2 className="text-2xl font-semibold">6. Durée de conservation</h2>
           <ul className="list-disc list-inside text-gray-800 leading-relaxed">
-            <li>
-              Données du formulaire : conservées le temps nécessaire au traitement de la demande, puis supprimées.
-            </li>
-            <li>
-              Données d’audience : conservées selon la politique de rétention de Plausible (données statistiques).
-            </li>
-            <li>
-              Logs techniques (Netlify) : conservés pour une durée limitée, à des fins de sécurité et de maintenance.
-            </li>
+            <li>Données du formulaire : conservées le temps nécessaire au traitement de la demande, puis supprimées.</li>
+            <li>Données d’audience : conservées selon la politique de rétention de Plausible (données statistiques).</li>
+            <li>Logs techniques (Netlify) : conservés pour une durée limitée, à des fins de sécurité et de maintenance.</li>
           </ul>
         </section>
 

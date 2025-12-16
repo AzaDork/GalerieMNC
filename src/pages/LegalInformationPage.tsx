@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const LegalInformationPage: React.FC = () => {
-  useEffect(() => {
-    document.title = 'Mentions légales | Galerie MNC';
-  }, []);
-
   return (
     <div className="pt-40 pb-16 px-4 md:px-8 bg-white">
+      <Helmet>
+        <title>Mentions légales | Galerie MNC</title>
+        <meta name="robots" content="noindex,follow" />
+        <link rel="canonical" href="https://galeriemnc.com/mentions-legales" />
+      </Helmet>
+
       <main className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-semibold mb-8">Mentions légales</h1>
 
