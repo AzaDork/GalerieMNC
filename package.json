@@ -15,14 +15,14 @@
   "dependencies": {
     "@sanity/client": "^7.13.2",
     "@sanity/image-url": "^2.0.2",
-    "emailjs-com": "^3.2.0",
     "leaflet": "^1.9.4",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
     "react-leaflet": "^4.2.1",
-    "react-router-dom": "^7.5.3"
+    "react-router-dom": "^7.5.3",
+    "sib-api-v3-sdk": "^8.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

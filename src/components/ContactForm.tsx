@@ -73,7 +73,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!validateForm()) return;
@@ -81,45 +81,46 @@ const ContactForm: React.FC<ContactFormProps> = ({ initialSubject = '' }) => {
     setIsSubmitting(true);
     setIsSubmitted(false);
 
-    const templateParams = {
-      civility: formData.civility,
-      from_name: formData.name,
-      from_email: formData.email,
-      subject: formData.subject || 'Nouveau message depuis le site',
-      message: formData.message,
-    };
+    try {
+      const payload = {
+        civility: formData.civility,
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject || 'Nouveau message depuis le site',
+        message: formData.message,
+      };
 
-    emailjs
-      .send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID as string,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string,
-        templateParams,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string
-      )
-      .then(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        setFormData({
-          civility: '',
-          name: '',
-          email: '',
-          subject: '',
-          message: '',
-        });
-
-        // Optionnel : cacher le message de succès après 5s
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 5000);
-      })
-      .catch((error) => {
-        console.error('Erreur EmailJS:', error);
-        setIsSubmitting(false);
-        alert(
-          "Une erreur est survenue lors de l'envoi du message. Merci de réessayer."
-        );
+      const res = await fetch('/.netlify/functions/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       });
+
+      if (!res.ok) {
+        const txt = await res.text().catch(() => '');
+        throw new Error(`Contact function failed (${res.status}) ${txt}`);
+      }
+
+      setIsSubmitting(false);
+      setIsSubmitted(true);
+      setFormData({
+        civility: '',
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+      });
+
+      setTimeout(() => {
+        setIsSubmitted(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Erreur Brevo:', error);
+      setIsSubmitting(false);
+      alert("Une erreur est survenue lors de l'envoi du message. Merci de réessayer.");
+    }
   };
+
 
   return (
     <div className="bg-white p-8 rounded-lg">
