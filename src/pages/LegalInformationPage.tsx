@@ -16,26 +16,26 @@ const LegalInformationPage: React.FC = () => {
         <section className="space-y-2 mb-10">
           <h2 className="text-xl font-semibold">Éditeur du site</h2>
           <p className="text-gray-800 leading-relaxed">
-            <strong>Galerie MNC</strong>
+            <strong>MC International</strong>
             <br />
-            Nom / Prénom : <span className="italic">À compléter</span>
+            NOM Prénom : NAMY Martine
             <br />
-            Statut : <span className="italic">À compléter (ex : Auto-entrepreneur)</span>
+            Statut : Dirigeante
             <br />
-            SIRET : <span className="italic">À compléter</span>
+            SIRET : 33203868600025
             <br />
-            Adresse : <span className="italic">À compléter</span>
+            Adresse : 36 rue des Saints Pères
             <br />
-            Email : <span className="italic">À compléter</span>
+            Email : gmnc@club-internet.com
             <br />
-            Téléphone : <span className="italic">À compléter</span>
+            Téléphone : 01 45 44 55 27
           </p>
         </section>
 
         <section className="space-y-2 mb-10">
           <h2 className="text-xl font-semibold">Directeur de la publication</h2>
           <p className="text-gray-800 leading-relaxed">
-            <span className="italic">À compléter (Nom / Prénom)</span>
+            <span className="italic">CAULIER Antoni</span>
           </p>
         </section>
 

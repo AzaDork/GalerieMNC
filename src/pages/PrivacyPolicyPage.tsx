@@ -24,9 +24,9 @@ const PrivacyPolicyPage: React.FC = () => {
           <p className="text-gray-800 leading-relaxed">
             Le responsable du traitement des données est :
             <br />
-            <strong>Galerie MNC</strong> — <span className="italic">À compléter (Nom / Prénom)</span>
+            <strong>MC International - NAMY Martine</strong>
             <br />
-            Email : <span className="italic">À compléter</span>
+            Email : gmnc@club-internet.com
           </p>
         </section>
 
@@ -138,7 +138,7 @@ const PrivacyPolicyPage: React.FC = () => {
             et de limitation du traitement.
           </p>
           <p className="text-gray-800 leading-relaxed">
-            Pour exercer vos droits, vous pouvez nous contacter à : <span className="italic">À compléter (email)</span>
+            Pour exercer vos droits, vous pouvez nous contacter à : gmnc@club-internet.com
           </p>
         </section>
 
@@ -150,7 +150,7 @@ const PrivacyPolicyPage: React.FC = () => {
             techniques.
           </p>
           <p className="text-gray-800 leading-relaxed">
-            Dernière mise à jour : <span className="italic">À compléter (ex : 16/12/2025)</span>
+            Dernière mise à jour : 18 décembre 2025
           </p>
         </section>
       </main>
