@@ -1,6 +1,6 @@
-import SibApiV3Sdk from "sib_api_v3_sdk";
+const SibApiV3Sdk = require("sib-api-v3-sdk");
 
-export const handler = async (event) => {
+exports.handler = async (event) => {
   try {
     const { civility, name, email, subject, message } = JSON.parse(event.body || "{}");
 
@@ -13,15 +13,13 @@ export const handler = async (event) => {
 
     const api = new SibApiV3Sdk.TransactionalEmailsApi();
 
-    const safeSubject = (subject && String(subject).trim()) ? String(subject).trim() : "Nouveau message – Galerie MNC";
-
     await api.sendTransacEmail({
       sender: { email: "contact@galeriemnc.com", name: "Galerie MNC" },
-      to: [{ email: "gmnc@club-internet.fr" }],
+      to: [{ email: "gmnx@club-internet.fr" }],
       replyTo: { email },
-      subject: safeSubject,
+      subject: (subject && String(subject).trim()) ? String(subject).trim() : "Nouveau message – Galerie MNC",
       htmlContent: `
-        <p><strong>Vous avez reçu un nouveau message via le site Galerie MNC.</strong></p>
+        <p><strong>Nouveau message via le site Galerie MNC</strong></p>
         <p><strong>Civilité :</strong> ${civility || "-"}</p>
         <p><strong>Nom :</strong> ${name}</p>
         <p><strong>Email :</strong> ${email}</p>
@@ -30,8 +28,8 @@ export const handler = async (event) => {
     });
 
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
-  } catch (e) {
-    console.error(e);
-    return { statusCode: 500, body: JSON.stringify({ ok: false }) };
+  } catch (err) {
+    console.error("BREVO ERROR:", err);
+    return { statusCode: 500, body: "Email failed" };
   }
 };
