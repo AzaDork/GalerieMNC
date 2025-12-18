@@ -17,7 +17,7 @@ export const handler = async (event) => {
 
     await api.sendTransacEmail({
       sender: { email: "contact@galeriemnc.com", name: "Galerie MNC" },
-      to: [{ email: "gmnx@club-internet.fr" }],
+      to: [{ email: "gmnc@club-internet.fr" }],
       replyTo: { email },
       subject: safeSubject,
       htmlContent: `
