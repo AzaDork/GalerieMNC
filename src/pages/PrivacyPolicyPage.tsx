@@ -40,6 +40,7 @@ const PrivacyPolicyPage: React.FC = () => {
               Lorsque vous nous contactez via le formulaire, nous collectons les informations suivantes :
             </p>
             <ul className="list-disc list-inside text-gray-800 leading-relaxed">
+              <li>Civilité</li>
               <li>Nom</li>
               <li>Adresse email</li>
               <li>Sujet</li>
