@@ -110,7 +110,7 @@ const PrivacyPolicyPage: React.FC = () => {
             Les données peuvent être traitées par des prestataires techniques, selon les services utilisés :
           </p>
           <ul className="list-disc list-inside text-gray-800 leading-relaxed">
-            <li><strong>EmailJS</strong> (envoi des messages du formulaire)</li>
+            <li><strong>Brevo</strong> (envoi des messages du formulaire)</li>
             <li><strong>Plausible Analytics</strong> (mesure d’audience)</li>
             <li><strong>Netlify</strong> (hébergement / déploiement, logs techniques)</li>
             <li><strong>Sanity</strong> (hébergement du contenu CMS)</li>
