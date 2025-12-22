@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Send } from 'lucide-react';
-import emailjs from 'emailjs-com';
 
 interface FormState {
   civility: string;

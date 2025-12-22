@@ -19,11 +19,8 @@ exports.handler = async (event) => {
       replyTo: { email },
       subject: (subject && String(subject).trim()) ? String(subject).trim() : "Nouveau message – Galerie MNC",
       htmlContent: `
-        <p><strong>Nouveau message via le site Galerie MNC</strong></p>
-        <p><strong>Civilité :</strong> ${civility || "-"}</p>
-        <p><strong>Nom :</strong> ${name}</p>
-        <p><strong>Email :</strong> ${email}</p>
-        <p><strong>Message :</strong><br/>${String(message).replace(/\n/g, "<br/>")}</p>
+        <p><strong>Nouveau message via le site Galerie MNC de ${civility || ""} ${name} :</strong></p>
+        <p>${String(message).replace(/\n/g, "<br/>")}</p>
       `,
     });
 
