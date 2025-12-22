@@ -35,7 +35,7 @@ const PrivacyPolicyPage: React.FC = () => {
           <h2 className="text-2xl font-semibold">2. Données collectées</h2>
 
           <div className="space-y-2">
-            <h3 className="text-lg font-semibold">2.1 Formulaire de contact (EmailJS)</h3>
+            <h3 className="text-lg font-semibold">2.1 Formulaire de contact (Brevo)</h3>
             <p className="text-gray-800 leading-relaxed">
               Lorsque vous nous contactez via le formulaire, nous collectons les informations suivantes :
             </p>
@@ -46,7 +46,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <li>Message</li>
             </ul>
             <p className="text-gray-800 leading-relaxed">
-              Ces données sont nécessaires pour répondre à votre demande. L’envoi est réalisé via <strong>EmailJS</strong>.
+              Ces données sont nécessaires pour répondre à votre demande. L’envoi est réalisé via <strong>Brevo</strong>.
             </p>
           </div>
 
