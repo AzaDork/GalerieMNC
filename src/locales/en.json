@@ -1,0 +1,14 @@
+{
+  "nav": {
+    "home": "Home",
+    "artists": "Artists",
+    "framing": "Framing",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "contact": {
+    "title": "Contact",
+    "send": "Send"
+  }
+}
+
