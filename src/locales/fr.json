@@ -6,8 +6,55 @@
     "about": "À propos",
     "contact": "Contact"
   },
+
+  "home": {
+    "hero": {
+      "title": "Galerie d’art contemporain à Paris",
+      "subtitle": "Œuvres originales, artistes émergents et encadrement sur mesure"
+    },
+    "introduction": {
+      "title": "Galerie MNC",
+      "text": "Galerie MNC est une galerie d’art contemporain basée à Paris, dédiée à la promotion d’artistes émergents et à la valorisation d’œuvres originales."
+    }
+  },
+
   "contact": {
     "title": "Contact",
-    "send": "Envoyer"
+    "subtitle": "Une question, un projet ou une demande particulière ?",
+    "send": "Envoyer",
+    "success": "Votre message a bien été envoyé.",
+    "error": "Une erreur est survenue. Veuillez réessayer."
+  },
+
+  "seo": {
+    "default": {
+      "title": "Galerie MNC – Galerie d’art contemporain à Paris",
+      "description": "Galerie MNC est une galerie d’art contemporain à Paris présentant des artistes émergents, des œuvres originales et un service d’encadrement sur mesure."
+    },
+
+    "home": {
+      "title": "Galerie MNC – Galerie d’art contemporain à Paris",
+      "description": "Découvrez Galerie MNC, galerie d’art contemporain à Paris : artistes émergents, œuvres uniques et encadrement sur mesure."
+    },
+
+    "artists": {
+      "title": "Artistes – Galerie MNC",
+      "description": "Découvrez les artistes représentés par Galerie MNC, galerie d’art contemporain à Paris."
+    },
+
+    "framing": {
+      "title": "Encadrement sur mesure – Galerie MNC",
+      "description": "Galerie MNC propose un service d’encadrement sur mesure pour œuvres d’art, photographies et tirages."
+    },
+
+    "about": {
+      "title": "À propos – Galerie MNC",
+      "description": "Découvrez l’histoire, la vision et l’approche curatoriale de Galerie MNC."
+    },
+
+    "contact": {
+      "title": "Contact – Galerie MNC",
+      "description": "Contactez Galerie MNC pour toute question, projet artistique ou demande d’encadrement."
+    }
   }
 }

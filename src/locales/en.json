@@ -6,9 +6,55 @@
     "about": "About",
     "contact": "Contact"
   },
+
+  "home": {
+    "hero": {
+      "title": "Contemporary Art Gallery in Paris",
+      "subtitle": "Original artworks, emerging artists and custom framing"
+    },
+    "introduction": {
+      "title": "Galerie MNC",
+      "text": "Galerie MNC is a contemporary art gallery based in Paris, dedicated to promoting emerging artists and showcasing original artworks."
+    }
+  },
+
   "contact": {
     "title": "Contact",
-    "send": "Send"
+    "subtitle": "A question, a project or a specific request?",
+    "send": "Send",
+    "success": "Your message has been sent successfully.",
+    "error": "An error occurred. Please try again."
+  },
+
+  "seo": {
+    "default": {
+      "title": "Galerie MNC – Contemporary Art Gallery in Paris",
+      "description": "Galerie MNC is a contemporary art gallery in Paris presenting emerging artists, original artworks and custom framing services."
+    },
+
+    "home": {
+      "title": "Galerie MNC – Contemporary Art Gallery in Paris",
+      "description": "Discover Galerie MNC, a contemporary art gallery in Paris featuring emerging artists, unique artworks and custom framing."
+    },
+
+    "artists": {
+      "title": "Artists – Galerie MNC",
+      "description": "Discover the artists represented by Galerie MNC, a contemporary art gallery in Paris."
+    },
+
+    "framing": {
+      "title": "Custom Framing – Galerie MNC",
+      "description": "Galerie MNC offers custom framing services for artworks, photographs and prints."
+    },
+
+    "about": {
+      "title": "About – Galerie MNC",
+      "description": "Learn more about Galerie MNC, its vision and curatorial approach."
+    },
+
+    "contact": {
+      "title": "Contact – Galerie MNC",
+      "description": "Contact Galerie MNC for any question, artistic project or framing request."
+    }
   }
 }
-
